@@ -9,6 +9,10 @@ public class StudentModel {
 
     private String sex;
 
+    private Integer score;
+
+    private String subject;
+
     public Integer getId() {
         return id;
     }
@@ -39,5 +43,33 @@ public class StudentModel {
 
     public void setSex(String sex) {
         this.sex = sex == null ? null : sex.trim();
+    }
+
+    public Integer getScore() {
+        return score;
+    }
+
+    public void setScore(Integer score) {
+        this.score = score;
+    }
+
+    public String getSubject() {
+        return subject;
+    }
+
+    public void setSubject(String subject) {
+        this.subject = subject;
+    }
+
+    @Override
+    public String toString() {
+        return "StudentModel{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", age=" + age +
+                ", sex='" + sex + '\'' +
+                ", score=" + score +
+                ", subject='" + subject + '\'' +
+                '}';
     }
 }

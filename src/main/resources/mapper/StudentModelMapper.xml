@@ -6,9 +6,11 @@
         <result column="name" jdbcType="VARCHAR" property="name"/>
         <result column="age" jdbcType="INTEGER" property="age"/>
         <result column="sex" jdbcType="VARCHAR" property="sex"/>
+        <result column="score" jdbcType="INTEGER" property="score"/>
+        <result column="subject" jdbcType="VARCHAR" property="subject"/>
     </resultMap>
     <sql id="Base_Column_List">
-    id, name, age, sex
+    id, name, age, sex, score,subject
   </sql>
     <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
         select
@@ -42,6 +44,12 @@
             <if test="sex != null">
                 and sex = #{sex}
             </if>
+            <if test="score != null">
+                and score = #{score}
+            </if>
+            <if test="subject != null">
+                and subject = #{subject}
+            </if>
         </where>
     </select>
 
@@ -70,6 +78,12 @@
             <if test="sex != null">
                 sex,
             </if>
+            <if test="score != null">
+                score,
+            </if>
+            <if test="subject != null">
+               subject,
+            </if>
         </trim>
         <trim prefix="values (" suffix=")" suffixOverrides=",">
             <if test="id != null">
@@ -83,6 +97,12 @@
             </if>
             <if test="sex != null">
                 #{sex,jdbcType=VARCHAR},
+            </if>
+            <if test="score != null">
+                #{score,jdbcType=INTEGER},
+            </if>
+            <if test="subject != null">
+                #{subject,jdbcType=VARCHAR},
             </if>
         </trim>
     </insert>
@@ -98,6 +118,12 @@
             <if test="sex != null">
                 sex = #{sex,jdbcType=VARCHAR},
             </if>
+            <if test="score != null">
+                score = #{score,jdbcType=INTEGER},
+            </if>
+            <if test="subject != null">
+                subject = #{subject,jdbcType=VARCHAR},
+            </if>
         </set>
         where id = #{id,jdbcType=INTEGER}
     </update>
@@ -105,7 +131,18 @@
     update student
     set name = #{name,jdbcType=VARCHAR},
       age = #{age,jdbcType=INTEGER},
-      sex = #{sex,jdbcType=VARCHAR}
+      sex = #{sex,jdbcType=VARCHAR},
+      score = #{score,jdbcType=INTEGER},
+      subject = #{subject,jdbcType=VARCHAR}
     where id = #{id,jdbcType=INTEGER}
   </update>
+
+
+    <insert id="batchAdd" parameterType="java.util.List" >
+        insert into student (id, name, age, sex, score,subject)
+        values
+        <foreach collection="list" item="item" index="index" separator=",">
+            ( #{item.id},  #{item.name}, #{item.age}, #{item.sex}, #{item.score}, #{item.subject} )
+        </foreach>
+    </insert>
 </mapper>

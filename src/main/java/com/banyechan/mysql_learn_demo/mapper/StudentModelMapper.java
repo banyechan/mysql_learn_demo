@@ -28,5 +28,8 @@ public interface StudentModelMapper {
 
     List<StudentModel> listStudent();
 
+    int batchAdd(List<StudentModel> studentModels);
+
+
 
 }
