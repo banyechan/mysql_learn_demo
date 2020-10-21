@@ -19,7 +19,7 @@ class MysqlLearnDemoApplicationTests {
 
     @Test
     public void batchAddStudent() {
-        studentService.batchAddStudent(5);
+        studentService.batchAddStudent(500);
     }
 
 }

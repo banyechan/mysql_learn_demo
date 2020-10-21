@@ -49,4 +49,11 @@ public class StudentController {
         return studentService.deleteStudent(id);
     }
 
+    // 批量添加
+    @GetMapping("/batch")
+    public boolean batchAddStudent() {
+        return studentService.batchAddStudent(1);
+    }
+
+
 }

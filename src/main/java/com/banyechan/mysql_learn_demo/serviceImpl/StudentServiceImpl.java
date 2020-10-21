@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.atomic.AtomicInteger;
 
 @Service
 public class StudentServiceImpl implements StudentService {
@@ -22,7 +23,7 @@ public class StudentServiceImpl implements StudentService {
             "张婷婷"," 李顺杰","查红英","陈世灏","龙先芹","邢承达","李春秋"," 罗先萍","石云专","李秋雨",
             "罗天兰","王君仝","徐娥升","李天星","李伟芳","罗天虹","石兆阳","李兴奇","李江","杨丽茱",
             "郭新城"," 王健康","王天敏","石宏涛","李树","石成廷","李明"," 石何月","周润兰","张宏杰",
-            "曾强","刘家美"," 周新晨","毛彬彬","李娜","字文烨","王兴萍","杨梦雪"," 李云浩","李新花",
+            "曾强","刘家美","周新晨","毛彬彬","李娜","字文烨","王兴萍","杨梦雪"," 李云浩","李新花",
             "段家廷","周先云","李茂凡","杨国璨","何有维","柏光寒","姜文超","潘学志","杨丽珠","陶文俊",
             "李艳","李新月","董洋新","周顺利","字绍平","张露寒"," 石成友","陈含琪","李云芳","李文艳",
             "黄偲涵","杨斐然","李泽瑞","黄婧涵","周  戈","陈峻锋","欧隽辰","陈瑾瑜","胡语心","林炫宏",
@@ -56,9 +57,10 @@ public class StudentServiceImpl implements StudentService {
             "崔永琪","刘洛菘","周博文","宋正妍","褚紫然","艾信成","秦浩哲","褚玉清","董若曦","熊莉文"
             };
 
-    private String [] subjectArr = {"语文","代数","几何","英语","日语","韩语","生物","物理","化学","体育",
-                                    "历史","政治","地理","美术","音乐","围棋","象棋","书法","钢琴","篮球",
-                                    "土木","会计","交通","临床","机电"};
+    private String [] subjectArr = {"语文","代数","英语","美术"};
+//    private String [] subjectArr = {"语文","代数","几何","英语","日语","韩语","生物","物理","化学","体育",
+//                                    "历史","政治","地理","美术","音乐","围棋","象棋","书法","钢琴","篮球",
+//                                    "土木","会计","交通","临床","机电"};
 
     @Autowired
     private StudentModelMapper studentMapper;
@@ -100,7 +102,14 @@ public class StudentServiceImpl implements StudentService {
 
     @Override
     public boolean batchAddStudent(int num) {
-        return batchInsertTwo();
+        if(num < 1 ){
+            num = 1;
+        }
+        for(int i = 0;i < num ; i++){
+            batchInsertTwo();
+        }
+
+        return true;
     }
 
 
@@ -141,6 +150,8 @@ public class StudentServiceImpl implements StudentService {
 
     // 批量插入方法2
     private boolean batchInsertTwo(){
+        //数字自增 线程安全
+        AtomicInteger atomicInteger = new AtomicInteger();
         int count = 0;
         long start = System.currentTimeMillis();
         List<StudentModel> studentList = new ArrayList<>();
@@ -154,10 +165,12 @@ public class StudentServiceImpl implements StudentService {
             }
             for (int i = 0; i < subjectArr.length; i++) {
                 StudentModel temModel = new StudentModel();
-                temModel.setSubject(subjectArr[i]);
+                int id = atomicInteger.getAndIncrement();
+                temModel.setId(id);
                 temModel.setName(temName);
                 temModel.setAge(r != 0 ? r : 1);
                 temModel.setSex(sex);
+                temModel.setSubject(subjectArr[i]);
                 int score = (int) (Math.random() * 100);
                 temModel.setScore(score);
 
