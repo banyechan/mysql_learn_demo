@@ -4,6 +4,7 @@ package com.banyechan.mysql_learn_demo.serviceImpl;
 import com.banyechan.mysql_learn_demo.entity.StudentModel;
 import com.banyechan.mysql_learn_demo.mapper.StudentModelMapper;
 import com.banyechan.mysql_learn_demo.service.StudentService;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -11,6 +12,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.atomic.AtomicInteger;
 
+@Slf4j
 @Service
 public class StudentServiceImpl implements StudentService {
 
@@ -241,7 +243,36 @@ public class StudentServiceImpl implements StudentService {
 //
 //        }
 
-        Rand_30();
+        //Rand_30();
+
+
+//        String [] subjectArr = {"语文","代数","几何","英语","日语","韩语","生物","物理","化学","体育",
+//                                   "历史","政治","地理","美术","音乐","围棋","象棋","书法","钢琴","篮球",
+//                                   "土木","会计","交通","临床","机电"};
+//        List<String> subjectList = new ArrayList<>();
+//        for(String tem : subjectArr){
+//            subjectList.add(tem);
+//        }
+//        if(subjectList.size() > 10){
+//            int times = (int) Math.ceil(subjectList.size()/ 10);
+//            log.info("---------time={}",times);
+//            for(int i = 0;i<=times;i++){
+//                log.info("------第{}次循环",i);
+//                List<String> temList = subjectList.subList(i*10, Math.min((i+1)*10, subjectList.size()) );
+//                log.info("=====temList={}",temList);
+//            }
+//
+//        }
+
+        log.info("===23 / 10={}",(23 / 10) );
+        log.info("===23 / 10.0={}",(23 / 10.0) );
+        log.info("===23.0 / 10={}",(23.0 / 10) );
+        log.info("===23.0 / 10.0={}",(23.0 / 10.0) );
+        log.info("===Math.ceil(23/ 10)={}",Math.ceil(23 / 10));
+        log.info("===Math.ceil(23/ 10.0)={}",Math.ceil(23 / 10.0));
+        log.info("===(int)Math.ceil(23/ 10)={}",(int)Math.ceil(23 / 10));
+
+
     }
 
 

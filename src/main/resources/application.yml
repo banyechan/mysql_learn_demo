@@ -1,0 +1,60 @@
+
+server:
+  port: 2021
+
+#
+## mybatis对应的映射文件路径
+#mybatis.mapper-locations=classpath:mapper/*.xml
+## mybatis对应的实体类
+#mybatis.type-aliases-package=com.banyechen.mysql_learn_demo.entity
+#
+#spring.shardingsphere.datasource.names=banyechan
+#spring.shardingsphere.datasource.banyechan.type=com.zaxxer.hikari.HikariDataSource
+#spring.shardingsphere.datasource.banyechan.driver-class-name=com.mysql.cj.jdbc.Driver
+#spring.shardingsphere.datasource.banyechan.jdbc-url=jdbc:mysql://127.0.0.1:3306/banyechan?characterEncoding=utf8&useSSL=false
+#spring.shardingsphere.datasource.banyechan.username=root
+#spring.shardingsphere.datasource.banyechan.password=123456
+#
+## 展示sql打印
+#spring.shardingsphere.props.sql.show=true
+#
+## 自定义分表算法
+##spring.shardingsphere.sharding.tables.student.table-strategy.standard.sharding-column=id
+##spring.shardingsphere.sharding.tables.student.table-strategy.standard.precise-algorithm-class-name=com.banyechen.mysql_learn_demo.MyCustomShardingAlgorithm
+#
+## 分表配置
+#spring.shardingsphere.sharding.tables.student.actual-data-nodes=banyechan.student_0$->{0..3}
+## inline 表达式 （id类型转换 ->  id.longValue() -> user_${id.longValue() % 4}）
+#spring.shardingsphere.sharding.tables.student.table-strategy.inline.sharding-column=id
+#spring.shardingsphere.sharding.tables.student.table-strategy.inline.algorithm-expression=student_0$->{id % 4}
+#spring.shardingsphere.sharding.tables.student.key-generator.column=id
+#spring.shardingsphere.sharding.tables.student.key-generator.type=SNOWFLAKE
+
+
+
+
+spring:
+  application:
+    name: mysql_learn_demo
+
+  # 数据源
+  datasource:
+    driver-class-name: com.mysql.jdbc.Driver
+    username: root
+    password: 123456
+    url: jdbc:mysql://127.0.0.1:3306/banyechan?characterEncoding=utf8&useSSL=false
+
+# mybaits 模块配置
+mybatis:
+  mapper-locations: classpath:mapper/*.xml
+  type-aliases-package: com.banyechen.mysql_learn_demo.entity
+
+
+#sql语句打印
+logging:
+  level:
+    com:
+      banyechan:
+        mysql_learn_demo:
+          mapper: debug
+

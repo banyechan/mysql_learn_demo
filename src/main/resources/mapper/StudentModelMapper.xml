@@ -138,7 +138,7 @@
   </update>
 
 
-    <insert id="batchAdd" parameterType="java.util.List" >
+     <insert id="batchAdd" parameterType="java.util.List" >
         insert into student (id, name, age, sex, score,subject)
         values
         <foreach collection="list" item="item" index="index" separator=",">
